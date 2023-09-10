@@ -14,6 +14,9 @@ import { useState } from "react";
 import axios from "axios";
 import EmptyState from "@/components/EmptyState";
 import Loader from "@/components/Loader";
+import { cn } from "@/lib/utils";
+import UserAvatar from "@/components/UserAvatar";
+import BotAvatar from "@/components/BotAvatar";
 
 const ConversationPage = () => {
   const router = useRouter();
@@ -103,7 +106,18 @@ const ConversationPage = () => {
           )}
           <div className="flex flex-col-reverse gap-y-4">
             {messages.map((message) => (
-              <div key={message.content}>{message.content}</div>
+              <div
+                key={message.content}
+                className={cn(
+                  "flex w-full items-start gap-x-8 rounded-lg p-8",
+                  message.role === "user"
+                    ? "border border-black/10 bg-white"
+                    : "bg-muted",
+                )}
+              >
+                {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
+                <p className="whitespace-pre-line text-sm">{message.content}</p>
+              </div>
             ))}
           </div>
         </div>
