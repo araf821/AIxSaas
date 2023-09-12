@@ -2,7 +2,7 @@
 
 import * as z from "zod";
 import Heading from "@/components/Heading";
-import { MessageSquare } from "lucide-react";
+import { Download, MessageSquare } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { amountOptions, formSchema, resolutionOptions } from "./constants";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -21,6 +21,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Card, CardFooter } from "@/components/ui/Card";
+import Image from "next/image";
 
 const ImageGenerationPage = () => {
   const router = useRouter();
@@ -81,7 +83,7 @@ const ImageGenerationPage = () => {
                       <Input
                         className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                         disabled={isLoading}
-                        placeholder="A picture of Chopper eating cotton candy..."
+                        placeholder="A cat yelling at an oncoming train..."
                         {...field}
                       />
                     </FormControl>
@@ -163,7 +165,25 @@ const ImageGenerationPage = () => {
           {images.length === 0 && !isLoading && (
             <EmptyState label="No Images Generated" />
           )}
-          <div>Images will be rendered here</div>
+          <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {images.map((src) => (
+              <Card key={src} className="overflow-hidden rounded-lg">
+                <div className="relative aspect-square">
+                  <Image src={src} alt="image" fill className="object-cover" />
+                </div>
+                <CardFooter className="p-2">
+                  <Button
+                    onClick={() => window.open(src)}
+                    variant="secondary"
+                    className="w-full"
+                  >
+                    <Download className="mr-2 h-4 w-4" />
+                    Download
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
         </div>
       </div>
     </div>
