@@ -4,6 +4,7 @@ import { MAX_FREE_LIMIT } from "@/constants";
 import { Progress } from "../ui/Progress";
 import { Button } from "../ui/Button";
 import { Zap } from "lucide-react";
+import { useProModal } from "@/hooks/useProModal";
 
 interface FreeTierCounterProps {
   apiLimitCount: number;
@@ -11,6 +12,7 @@ interface FreeTierCounterProps {
 
 const FreeTierCounter: FC<FreeTierCounterProps> = ({ apiLimitCount = 0 }) => {
   const [mounted, setMounted] = useState(false);
+  const { onOpen } = useProModal();
 
   useEffect(() => {
     setMounted(true);
@@ -33,7 +35,7 @@ const FreeTierCounter: FC<FreeTierCounterProps> = ({ apiLimitCount = 0 }) => {
               value={(apiLimitCount / MAX_FREE_LIMIT) * 100}
             />
           </div>
-          <Button variant="premium" className="w-full">
+          <Button onClick={onOpen} variant="premium" className="w-full">
             Upgrade
             <Zap className="ml-2 h-4 w-4 fill-white" />
           </Button>
