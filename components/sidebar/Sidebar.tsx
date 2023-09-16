@@ -15,13 +15,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { FC } from "react";
+import FreeTierCounter from "./FreeTierCounter";
 
 const montserrat = Montserrat({
   weight: "600",
   subsets: ["latin"],
 });
-
-interface SidebarProps {}
 
 const routes = [
   {
@@ -69,7 +68,11 @@ const routes = [
   },
 ];
 
-const Sidebar: FC<SidebarProps> = ({}) => {
+interface SidebarProps {
+  apiLimitCount: number;
+}
+
+const Sidebar: FC<SidebarProps> = ({ apiLimitCount = 0 }) => {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -104,6 +107,7 @@ const Sidebar: FC<SidebarProps> = ({}) => {
           ))}
         </div>
       </div>
+      <FreeTierCounter apiLimitCount={apiLimitCount} />
     </div>
   );
 };

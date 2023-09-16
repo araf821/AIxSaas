@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Avatar, AvatarImage } from "./ui/avatar";
+import { Avatar, AvatarImage } from "./ui/Avatar";
 
 interface BotAvatarProps {}
 

@@ -1,6 +1,6 @@
 import { useUser } from "@clerk/nextjs";
 import { FC } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/Avatar";
 
 interface UserAvatarProps {}
 
