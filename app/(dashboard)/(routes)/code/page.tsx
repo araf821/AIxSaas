@@ -18,10 +18,12 @@ import { cn } from "@/lib/utils";
 import UserAvatar from "@/components/UserAvatar";
 import BotAvatar from "@/components/BotAvatar";
 import ReactMarkdown from "react-markdown";
+import { useProModal } from "@/hooks/useProModal";
 
 const CodeGenerationPage = () => {
   const router = useRouter();
   const [messages, setMessages] = useState<any[]>([]);
+  const { onOpen } = useProModal();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -48,7 +50,9 @@ const CodeGenerationPage = () => {
       setMessages((current) => [...current, userMessage, response.data]);
       form.reset();
     } catch (error: any) {
-      console.log(error);
+      if (error?.response?.status === 403) {
+        onOpen();
+      }
     } finally {
       router.refresh();
     }

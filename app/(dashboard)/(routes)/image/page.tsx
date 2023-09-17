@@ -20,13 +20,15 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@/components/ui/Select";
 import { Card, CardFooter } from "@/components/ui/Card";
 import Image from "next/image";
+import { useProModal } from "@/hooks/useProModal";
 
 const ImageGenerationPage = () => {
   const router = useRouter();
   const [images, setImages] = useState<string[]>([]);
+  const { onOpen } = useProModal();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -52,7 +54,9 @@ const ImageGenerationPage = () => {
       setImages(imageUrls);
       form.reset();
     } catch (error: any) {
-      console.log(error);
+      if (error?.response?.status === 403) {
+        onOpen();
+      }
     } finally {
       router.refresh();
     }

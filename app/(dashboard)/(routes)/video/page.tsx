@@ -14,10 +14,12 @@ import { useState } from "react";
 import axios from "axios";
 import EmptyState from "@/components/EmptyState";
 import Loader from "@/components/Loader";
+import { useProModal } from "@/hooks/useProModal";
 
 const VideoPage = () => {
   const router = useRouter();
   const [video, setVideo] = useState<string | undefined>("");
+  const { onOpen } = useProModal();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -36,7 +38,9 @@ const VideoPage = () => {
       setVideo(response.data[0]);
       form.reset();
     } catch (error: any) {
-      console.log(error);
+      if (error?.response?.status === 403) {
+        onOpen();
+      }
     } finally {
       router.refresh();
     }
