@@ -8,9 +8,13 @@ import Sidebar from "./Sidebar";
 
 interface MobileSidebarProps {
   apiLimitCount: number;
+  isSubscribed: boolean;
 }
 
-const MobileSidebar: FC<MobileSidebarProps> = ({ apiLimitCount }) => {
+const MobileSidebar: FC<MobileSidebarProps> = ({
+  apiLimitCount = 0,
+  isSubscribed = false,
+}) => {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -29,7 +33,7 @@ const MobileSidebar: FC<MobileSidebarProps> = ({ apiLimitCount }) => {
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className="p-0">
-        <Sidebar apiLimitCount={apiLimitCount} />
+        <Sidebar apiLimitCount={apiLimitCount} isSubscribed={isSubscribed} />
       </SheetContent>
     </Sheet>
   );

@@ -13,7 +13,7 @@ import {
 import { Montserrat } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { FC } from "react";
 import FreeTierCounter from "./FreeTierCounter";
 
@@ -70,10 +70,13 @@ const routes = [
 
 interface SidebarProps {
   apiLimitCount: number;
+  isSubscribed: boolean;
 }
 
-const Sidebar: FC<SidebarProps> = ({ apiLimitCount = 0 }) => {
-  const router = useRouter();
+const Sidebar: FC<SidebarProps> = ({
+  apiLimitCount = 0,
+  isSubscribed = false,
+}) => {
   const pathname = usePathname();
 
   return (
@@ -107,7 +110,10 @@ const Sidebar: FC<SidebarProps> = ({ apiLimitCount = 0 }) => {
           ))}
         </div>
       </div>
-      <FreeTierCounter apiLimitCount={apiLimitCount} />
+      <FreeTierCounter
+        apiLimitCount={apiLimitCount}
+        isSubscribed={isSubscribed}
+      />
     </div>
   );
 };

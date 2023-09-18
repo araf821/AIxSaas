@@ -8,9 +8,13 @@ import { useProModal } from "@/hooks/useProModal";
 
 interface FreeTierCounterProps {
   apiLimitCount: number;
+  isSubscribed: boolean;
 }
 
-const FreeTierCounter: FC<FreeTierCounterProps> = ({ apiLimitCount = 0 }) => {
+const FreeTierCounter: FC<FreeTierCounterProps> = ({
+  apiLimitCount = 0,
+  isSubscribed = false,
+}) => {
   const [mounted, setMounted] = useState(false);
   const { onOpen } = useProModal();
 
@@ -19,6 +23,10 @@ const FreeTierCounter: FC<FreeTierCounterProps> = ({ apiLimitCount = 0 }) => {
   }, []);
 
   if (!mounted) {
+    return null;
+  }
+
+  if (isSubscribed) {
     return null;
   }
 
