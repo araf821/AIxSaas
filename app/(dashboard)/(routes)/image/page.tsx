@@ -24,6 +24,7 @@ import {
 import { Card, CardFooter } from "@/components/ui/Card";
 import Image from "next/image";
 import { useProModal } from "@/hooks/useProModal";
+import { toast } from "react-hot-toast";
 
 const ImageGenerationPage = () => {
   const router = useRouter();
@@ -56,6 +57,8 @@ const ImageGenerationPage = () => {
     } catch (error: any) {
       if (error?.response?.status === 403) {
         onOpen();
+      } else {
+        toast.error("Something went wrong.");
       }
     } finally {
       router.refresh();

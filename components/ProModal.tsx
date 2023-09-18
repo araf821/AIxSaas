@@ -24,6 +24,7 @@ import { Card } from "./ui/Card";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/Button";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 interface ProModalProps {}
 
@@ -72,6 +73,7 @@ const ProModal: FC<ProModalProps> = ({}) => {
       window.location.href = response.data.url;
     } catch (error) {
       console.log("Stripe client error: ", error);
+      toast.error("Something went wrong.");
     } finally {
       setLoading(false);
     }
@@ -108,6 +110,7 @@ const ProModal: FC<ProModalProps> = ({}) => {
         </DialogHeader>
         <DialogFooter>
           <Button
+            disabled={loading}
             onClick={onSubscribe}
             size="lg"
             className="w-full"

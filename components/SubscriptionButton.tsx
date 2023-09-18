@@ -4,6 +4,7 @@ import { FC, useState } from "react";
 import { Button } from "./ui/Button";
 import { Zap } from "lucide-react";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 interface SubscriptionButtonProps {
   isSubscribed: boolean;
@@ -21,7 +22,7 @@ const SubscriptionButton: FC<SubscriptionButtonProps> = ({
 
       window.location.href = response.data.url;
     } catch (error) {
-      console.log(error);
+      toast.error("Something went wrong.");
     } finally {
       setIsLoading(false);
     }
