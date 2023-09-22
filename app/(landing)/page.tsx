@@ -1,3 +1,4 @@
+import LandingContent from "@/components/LandingContent";
 import LandingHero from "@/components/LandingHero";
 import LandingNavbar from "@/components/LandingNavbar";
 import { FC } from "react";
@@ -9,6 +10,7 @@ const LandingPage: FC<LandingPageProps> = ({}) => {
     <div className="h-full">
       <LandingNavbar />
       <LandingHero />
+      <LandingContent />
     </div>
   );
 };
